@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title> BEDRO Motors | معرض السيارات</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Cairo", sans-serif;
+    background: #050505;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(0, 150, 255, .12), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255, 0, 70, .10), transparent 30%);
+    pointer-events: none;
+    z-index: -2;
+}
+
+.grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    z-index: -1;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+
+    background: rgba(5,5,5,.55);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #00aaff;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+
+nav a {
+    color: #bbb;
+    text-decoration: none;
+    transition: .3s;
+}
+
+nav a:hover {
+    color: #00aaff;
+}
+
+.nav-btn {
+    padding: 10px 22px;
+    border: 1px solid #00aaff;
+    border-radius: 30px;
+    color: white;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 7% 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    width: 45%;
+    z-index: 5;
+}
+
+.badge {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid rgba(0,170,255,.5);
+    border-radius: 30px;
+    color: #00aaff;
+    margin-bottom: 20px;
+    background: rgba(0,170,255,.05);
+}
+
+.hero h1 {
+    font-size: clamp(50px, 7vw, 100px);
+    line-height: .95;
+    font-weight: 900;
+}
+
+.hero h1 span {
+    color: #00aaff;
+    text-shadow: 0 0 30px rgba(0,170,255,.5);
+}
+
+.hero p {
+    color: #999;
+    margin: 30px 0;
+    line-height: 2;
+    max-width: 550px;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 14px 30px;
+    border-radius: 35px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .4s;
+}
+
+.primary {
+    color: white;
+    background: linear-gradient(90deg, #0077ff, #00c6ff);
+    box-shadow: 0 0 30px rgba(0,150,255,.3);
+}
+
+.primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0,150,255,.5);
+}
+
+.secondary {
+    border: 1px solid #444;
+    color: white;
+}
+
+.secondary:hover {
+    border-color: #00aaff;
+}
+
+/* =========================
+   3D CAR
+========================= */
+
+.car-stage {
+    position: absolute;
+    width: 65%;
+    height: 80%;
+    left: -5%;
+    top: 12%;
+    perspective: 1200px;
+}
+
+.car {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform-style: preserve-3d;
+    transition: transform .15s ease-out;
+}
+
+.car img {
+    width: 95%;
+    max-width: 900px;
+    filter:
+        drop-shadow(0 35px 40px rgba(0,0,0,.8))
+        drop-shadow(0 0 35px rgba(0,150,255,.18));
+    transform: translateZ(80px);
+    animation: floatCar 5s ease-in-out infinite;
+}
+
+@keyframes floatCar {
+    0%,100% {
+        transform: translateZ(80px) translateY(0);
+    }
+
+    50% {
+        transform: translateZ(120px) translateY(-18px);
+    }
+}
+
+.light {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: #0077ff;
+    filter: blur(180px);
+    opacity: .15;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    display: flex;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.stat strong {
+    font-size: 30px;
+}
+
+.stat small {
+    display: block;
+    color: #777;
+}
+
+/* =========================
+   CARS SECTION
+========================= */
+
+section {
+    padding: 120px 7%;
+}
+
+.section-title {
+    margin-bottom: 50px;
+}
+
+.section-title small {
+    color: #00aaff;
+}
+
+.section-title h2 {
+    font-size: 50px;
+}
+
+.cars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.car-card {
+    position: relative;
+    padding: 25px;
+    min-height: 380px;
+    border-radius: 25px;
+    background: linear-gradient(145deg,#111,#080808);
+    border: 1px solid #222;
+    overflow: hidden;
+
+    transform-style: preserve-3d;
+    transition: .5s;
+}
+
+.car-card:hover {
+    transform:
+        perspective(800px)
+        rotateX(4deg)
+        rotateY(-5deg)
+        translateY(-10px);
+
+    border-color: rgba(0,170,255,.5);
+    box-shadow: 0 30px 70px rgba(0,0,0,.5);
+}
+
+.car-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: contain;
+    transition: .5s;
+}
+
+.car-card:hover img {
+    transform: scale(1.08) translateZ(30px);
+}
+
+.car-card h3 {
+    font-size: 25px;
+}
+
+.car-card p {
+    color: #777;
+}
+
+.price {
+    color: #00aaff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.experience {
+    min-height: 650px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+}
+
+.experience::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg, #050505 20%, transparent),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2000&q=80")
+        center/cover;
+    opacity: .35;
+}
+
+.exp-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.exp-content h2 {
+    font-size: 65px;
+    line-height: 1;
+}
+
+.exp-content p {
+    color: #999;
+    margin: 25px 0;
+    line-height: 2;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact {
+    text-align: center;
+}
+
+.contact h2 {
+    font-size: 55px;
+}
+
+.contact p {
+    color: #777;
+    margin: 20px;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    padding: 30px 7%;
+    border-top: 1px solid #181818;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    opacity: .4;
+    animation: particleMove linear infinite;
+    z-index: -1;
+}
+
+@keyframes particleMove {
+    from {
+        transform: translateY(100vh);
+    }
+
+    to {
+        transform: translateY(-10vh);
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:900px) {
+
+    nav ul {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .buttons {
+        justify-content: center;
+    }
+
+    .car-stage {
+        position: relative;
+        width: 120%;
+        height: 350px;
+        left: 0;
+    }
+
+    .stats {
+        justify-content: center;
+    }
+
+    .cars {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title h2 {
+        font-size: 38px;
+    }
+
+    .exp-content h2 {
+        font-size: 45px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid"></div>
+
+<!-- PARTICLES -->
+<div class="particle" style="left:10%;animation-duration:12s"></div>
+<div class="particle" style="left:25%;animation-duration:18s"></div>
+<div class="particle" style="left:40%;animation-duration:14s"></div>
+<div class="particle" style="left:60%;animation-duration:20s"></div>
+<div class="particle" style="left:80%;animation-duration:16s"></div>
+<div class="particle" style="left:90%;animation-duration:11s"></div>
+
+<!-- NAV -->
+<nav>
+    <div class="logo">BEDRO<span>.</span></div>
+
+    <ul>
+        <li><a href="#home">الرئيسية</a></li>
+        <li><a href="#cars">السيارات</a></li>
+        <li><a href="#experience">التجربة</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+    </ul>
+
+    <a class="nav-btn" href="#cars">استكشف</a>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="badge">
+            معرض السيارات الفاخرة
+        </div>
+
+        <h1>
+            قيادة<br>
+            <span>بلا حدود.</span>
+        </h1>
+
+        <p>
+            اكتشف مجموعة استثنائية من السيارات الرياضية
+            والفاخرة، بتجربة رقمية مصممة لعشاق السيارات.
+        </p>
+
+        <div class="buttons">
+            <a href="#cars" class="btn primary">
+                اكتشف السيارات
+            </a>
+
+            <a href="#contact" class="btn secondary">
+                احجز تجربة قيادة
+            </a>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong>120+</strong>
+                <small>سيارة</small>
+            </div>
+
+            <div class="stat">
+                <strong>15</strong>
+                <small>علامة عالمية</small>
+            </div>
+
+            <div class="stat">
+                <strong>10+</strong>
+                <small>سنوات خبرة</small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="car-stage">
+
+        <div class="light"></div>
+
+        <div class="car" id="heroCar">
+
+            <!-- صورة السيارة -->
+            <img
+            src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1400&q=90"
+            alt="Luxury Car">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CARS -->
+<section id="cars">
+
+    <div class="section-title">
+        <small>OUR COLLECTION</small>
+        <h2>اختار سيارتك.</h2>
+    </div>
+
+    <div class="cars">
+
+        <div class="car-card">
+
+            <img src="https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=900&q=80">
+
+            <h3>BMW M4</h3>
+
+            <p>أداء رياضي فاخر</p>
+
+            <div class="price">
+                ابتداءً من 4,500,000 ج.م
+            </div>
+
+        </div>
+
+
+        <div class="car-card">
+
+            <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=900&q=80">
+
+            <h3>Porsche 911</h3>
+
+            <p>قوة لا مثيل لها</p>
+
+            <div class="price">
+                ابتداءً من 6,800,000 ج.م
+            </div>
+
+        </div>
+
+
+        <div class="car-card">
+
+            <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=80">
+
+            <h3>Mercedes AMG</h3>
+
+            <p>الفخامة والأداء</p>
+
+            <div class="price">
+                ابتداءً من 5,900,000 ج.م
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+
+    <div class="exp-content">
+
+        <small style="color:#00aaff">
+            THE EXPERIENCE
+        </small>
+
+        <h2>
+            أكثر من مجرد<br>
+            سيارة.
+        </h2>
+
+        <p>
+            تجربة قيادة مصممة لتجعلك تشعر بكل تسارع،
+            وكل انعطافة، وكل تفصيلة في السيارة.
+        </p>
+
+        <a href="#contact" class="btn primary">
+            احجز الآن
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+    <h2>جاهز للقيادة؟</h2>
+
+    <p>
+        احجز تجربة قيادة واكتشف سيارتك القادمة.
+    </p>
+
+    <a href="tel:+201012281515" class="btn primary">
+        اتصل بنا
+    </a>
+
+</section>
+
+
+<footer>
+
+    <div>
+        BEDRO MOTORS © 2026
+    </div>
+
+    <div>
+        القاهرة · مصر
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =========================
+   3D MOUSE MOVEMENT
+========================= */
+
+const hero = document.querySelector(".hero");
+const car = document.getElementById("heroCar");
+
+hero.addEventListener("mousemove", (e) => {
+
+    const x = (window.innerWidth / 2 - e.clientX) / 30;
+    const y = (window.innerHeight / 2 - e.clientY) / 30;
+
+    car.style.transform =
+        `rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+
+
+hero.addEventListener("mouseleave", () => {
+
+    car.style.transform =
+        "rotateY(0deg) rotateX(0deg)";
+
+});
+
+
+/* =========================
+   CARD 3D EFFECT
+========================= */
+
+document.querySelectorAll(".car-card").forEach(card => {
+
+    card.addEventListener("mousemove", e => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x =
+            (e.clientX - rect.left) /
+            rect.width - .5;
+
+        const y =
+            (e.clientY - rect.top) /
+            rect.height - .5;
+
+        card.style.transform =
+            `perspective(800px)
+             rotateY(${x * 10}deg)
+             rotateX(${-y * 10}deg)
+             translateY(-10px)`;
+    });
+
+
+    card.addEventListener("mouseleave", () => {
+
+        card.style.transform =
+            "perspective(800px) rotateY(0) rotateX(0) translateY(0)";
+
+    });
+
+});
+
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+const observer =
+new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+            entry.target.style.opacity = "1";
+            entry.target.style.transform =
+                "translateY(0)";
+
+        }
+
+    });
+
+}, {
+    threshold: .15
+});
+
+
+document.querySelectorAll(
+    ".car-card,.section-title,.exp-content,.contact"
+).forEach(el => {
+
+    el.style.opacity = "0";
+    el.style.transform = "translateY(50px)";
+    el.style.transition = "1s ease";
+
+    observer.observe(el);
+
+});
+
+</script>
+
+</body>
+</html>
